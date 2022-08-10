@@ -7,17 +7,23 @@ const localStorageKey = 'feedback-form-state';
 
 form.addEventListener(
   'input',
-  throttle(event => {
-    const inputData = { email: form.email.value, message: form.message.value };
-    localStorage.setItem(localStorageKey, JSON.stringify(inputData));
-  }, 500)
+  throttle(
+    (event => {
+      const inputData = {
+        email: form.email.value,
+        message: form.message.value,
+      };
+      localStorage.setItem(localStorageKey, JSON.stringify(inputData));
+    },
+    500)
+  )
 );
 
 const storageData = localStorage.getItem(localStorageKey);
 const parseData = JSON.parse(storageData);
 
 form.addEventListener('submit', event => {
-  event.preventDefault(); //
+  event.preventDefault();
   const {
     elements: { email, message },
   } = event.currentTarget;
